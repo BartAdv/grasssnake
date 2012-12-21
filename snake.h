@@ -36,7 +36,9 @@ public:
   void turn_left();
   void turn_right();
   void eat();
-
+  
+  // checks whether snake would eat himself on potential move
+  bool can_move() const;
   void iter(std::function<void(const Point&)> func);
 };
 

@@ -94,6 +94,19 @@ bool eat()
   if(points.size() != 4) return false;
   return true;
 }
+bool eating_itself()
+{
+  int hx = 10, hy = 10;
+  auto snake = Snake(Point(hx, hy), Dir::Up, 4);
+  auto initial = snake.can_move();
+  snake.turn_right();
+  snake.move();
+  snake.turn_right();
+  snake.move();
+  snake.turn_right();
+
+  return initial && !snake.can_move();
+}
 int main()
 {
   std::cout << "Running tests..." << std::endl;
@@ -103,5 +116,6 @@ int main()
   assert(move_right(), "Moving right");  
   assert(move_down(), "Moving down");  
   assert(eat(), "Eating");  
+  assert(eating_itself(), "Detecting eating itself");
   return 0;
 }

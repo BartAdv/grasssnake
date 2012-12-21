@@ -71,3 +71,15 @@ void Snake::eat()
   auto head = points.begin();
   points.push_front(head->move(dir));
 }
+
+bool Snake::can_move() const
+{
+  auto head = points.begin();
+  auto target = head->move(dir);
+
+  for(auto seg : points)
+  {
+    if(seg == target) return false;
+  }
+  return true;
+}
