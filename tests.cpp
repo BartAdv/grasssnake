@@ -18,8 +18,7 @@ bool initial_setup()
   auto snake = Snake(Point(hx, hy), Dir::Up, 2);
   auto res = true;
 
-  snake.iter([=, &res, &hy](const Point& pt) -> 
-	     void { if(pt != Point(hx, hy++)) res = false; });
+  snake.iter([=, &res, &hy](const Point& pt) { if(pt != Point(hx, hy++)) res = false; });
   return res;
 }
 bool move_up()
@@ -31,8 +30,7 @@ bool move_up()
   
   hy--;
   auto res = true;
-  snake.iter([=, &res, &hy](const Point& pt) ->
-	     void { if(pt != Point(hx, hy++)) res = false; });
+  snake.iter([=, &res, &hy](const Point& pt) { if(pt != Point(hx, hy++)) res = false; });
 
   return res;
 }
@@ -44,8 +42,7 @@ bool move_left()
   snake.move();
   // gather the segments, since we haven't got access to them directly
   std::vector<Point> points;
-  snake.iter([&points](const Point& pt) -> 
-	     void { points.push_back(pt); });
+  snake.iter([&points](const Point& pt) { points.push_back(pt); });
 
   if(points[0] != Point(hx-1, hy)) return false;
   if(points[1] != Point(hx, hy)) return false;
@@ -60,7 +57,7 @@ bool move_right()
   snake.move();
 
   std::vector<Point> points;
-  snake.iter([&points](const Point& pt) -> void { points.push_back(pt); });
+  snake.iter([&points](const Point& pt) { points.push_back(pt); });
 
   if(points[0] != Point(hx+1, hy)) return false;
   if(points[1] != Point(hx, hy)) return false;
@@ -75,7 +72,7 @@ bool move_down()
   snake.move();
 
   std::vector<Point> points;
-  snake.iter([&points](const Point& pt) -> void { points.push_back(pt); });
+  snake.iter([&points](const Point& pt) { points.push_back(pt); });
 
   if(points[0] != Point(hx, hy+1)) return false;
   if(points[1] != Point(hx, hy)) return false;
