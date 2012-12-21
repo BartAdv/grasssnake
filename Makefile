@@ -15,6 +15,7 @@ obj/main.o: main.cpp snake.h
 
 tests: tests.o snake.o
 	$(CC) -o bin/$@ $+
+	bin/$@
 
 obj/tests.o: tests.cpp
 	$(CC) $(CFLAGS) -o $@ $<
