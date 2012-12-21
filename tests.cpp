@@ -40,7 +40,7 @@ bool move_left()
 {
   int hx = 10, hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Up, 3);
-  snake.turn(Dir::Left);
+  snake.turn_left();
   snake.move();
   // gather the segments, since we haven't got access to them directly
   std::vector<Point> points;
@@ -56,7 +56,7 @@ bool move_right()
 {
   int hx = 10, hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Up, 3);
-  snake.turn(Dir::Right);
+  snake.turn_right();
   snake.move();
 
   std::vector<Point> points;
@@ -71,7 +71,7 @@ bool move_down()
 {
   int hx = 10, hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Right, 3);
-  snake.turn(Dir::Down);
+  snake.turn_right();
   snake.move();
 
   std::vector<Point> points;

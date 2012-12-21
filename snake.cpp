@@ -47,10 +47,15 @@ void Snake::iter(std::function<void(const Point&)> func)
     func(it);
 }
 
-void Snake::turn(Dir::Enum dir)
+void Snake::turn_left()
 {
-  this->dir = dir;
+  this->dir = (Dir::Enum)((dir+3) % 4);
 }
+void Snake::turn_right()
+{
+  this->dir = (Dir::Enum)((dir+1) % 4);
+}
+
 void Snake::move()
 {
   // move every segment into place of previous

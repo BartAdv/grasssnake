@@ -33,7 +33,8 @@ class Snake
 public:
   Snake(Point head, Dir::Enum dir = Dir::Up, int length = 2);
   void move();
-  void turn(Dir::Enum);
+  void turn_left();
+  void turn_right();
   void eat();
 
   void iter(std::function<void(const Point&)> func);
