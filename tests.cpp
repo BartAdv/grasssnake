@@ -80,6 +80,20 @@ bool move_down()
 
   return true;
 }
+bool eat()
+{
+  int hx = 5, hy = 5;
+  auto snake = Snake(Point(hx, hy), Dir::Up, 3);
+  snake.eat();
+
+  std::vector<Point> points;
+  snake.iter([&points](const Point& pt) { points.push_back(pt); });
+
+  if(points[0] != Point(hx, hy-1)) return false;
+  if(points[1] != Point(hx, hy)) return false;
+  if(points.size() != 4) return false;
+  return true;
+}
 int main()
 {
   std::cout << "Running tests..." << std::endl;
@@ -88,5 +102,6 @@ int main()
   assert(move_left(), "Moving left");
   assert(move_right(), "Moving right");  
   assert(move_down(), "Moving down");  
+  assert(eat(), "Eating");  
   return 0;
 }

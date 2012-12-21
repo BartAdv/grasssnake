@@ -65,3 +65,9 @@ void Snake::move()
   auto head = points.begin();
   *head = head->move(this->dir);
 }
+void Snake::eat()
+{
+  // just grow at front
+  auto head = points.begin();
+  points.push_front(head->move(dir));
+}
