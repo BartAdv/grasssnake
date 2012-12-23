@@ -34,52 +34,45 @@ Dir::Enum Dir::opposite(Dir::Enum dir)
 }
 
 Snake::Snake(Point head, Dir::Enum dir, int length)
-  : dir(dir)
+  : head(head)
 {
   auto d = Dir::opposite(dir);
-  auto pt = head;
-  for(int i = 0; i < length; i++, pt = head.move(d))
-    points.push_back(pt);
+  for(int i = 0; i < length-1; i++)
+    segments.push_back(d);
 }
 void Snake::iter(std::function<void(const Point&)> func)
 {
-  for(auto it : points)
-    func(it);
+  Point pt = head;
+  func(pt);
+  for(auto seg : segments)
+  {
+    pt = pt.move(seg);
+    func(pt);
+  }
 }
-
-void Snake::turn_left()
+void Snake::move(Dir::Enum dir)
 {
-  this->dir = (Dir::Enum)((dir+3) % 4);
-}
-void Snake::turn_right()
-{
-  this->dir = (Dir::Enum)((dir+1) % 4);
-}
-
-void Snake::move()
-{
-  // move every segment into place of previous
-  for(auto seg = points.end()-1; seg != points.begin(); seg--)
-    *seg = *(seg - 1);
-  // move the head
-  auto head = points.begin();
-  *head = head->move(this->dir);
+  head = head.move(dir);
+  segments.push_front(Dir::opposite(dir));
+  segments.pop_back();
 }
 void Snake::eat()
 {
   // just grow at front
-  auto head = points.begin();
-  points.push_front(head->move(dir));
+  auto dir = segments[0];
+  head = head.move(Dir::opposite(dir));
+  segments.push_front(dir);
 }
 
-bool Snake::can_move() const
+bool Snake::can_move(Dir::Enum dir) const
 {
-  auto head = points.begin();
-  auto target = head->move(dir);
-
-  for(auto seg : points)
+  auto target = head.move(dir);
+  Point pt = head;
+  for(auto seg : segments)
   {
-    if(seg == target) return false;
+    pt = pt.move(seg);
+    if(pt == target)
+      return false;
   }
   return true;
 }

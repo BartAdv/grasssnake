@@ -28,17 +28,15 @@ struct Point
 
 class Snake
 {
-  std::deque<Point> points;
-  Dir::Enum dir;
+  std::deque<Dir::Enum> segments;
+  Point head;
 public:
   Snake(Point head, Dir::Enum dir = Dir::Up, int length = 2);
-  void move();
-  void turn_left();
-  void turn_right();
+  void move(Dir::Enum);
   void eat();
   
   // checks whether snake would eat himself on potential move
-  bool can_move() const;
+  bool can_move(Dir::Enum) const;
   void iter(std::function<void(const Point&)> func);
 };
 

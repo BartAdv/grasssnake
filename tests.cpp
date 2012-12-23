@@ -26,7 +26,7 @@ bool move_up()
   int hx = 10;
   int hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Up, 3);
-  snake.move();
+  snake.move(Dir::Up);
   
   hy--;
   auto res = true;
@@ -38,8 +38,7 @@ bool move_left()
 {
   int hx = 10, hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Up, 3);
-  snake.turn_left();
-  snake.move();
+  snake.move(Dir::Left);
   // gather the segments, since we haven't got access to them directly
   std::vector<Point> points;
   snake.iter([&points](const Point& pt) { points.push_back(pt); });
@@ -53,8 +52,7 @@ bool move_right()
 {
   int hx = 10, hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Up, 3);
-  snake.turn_right();
-  snake.move();
+  snake.move(Dir::Right);
 
   std::vector<Point> points;
   snake.iter([&points](const Point& pt) { points.push_back(pt); });
@@ -68,8 +66,7 @@ bool move_down()
 {
   int hx = 10, hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Right, 3);
-  snake.turn_right();
-  snake.move();
+  snake.move(Dir::Down);
 
   std::vector<Point> points;
   snake.iter([&points](const Point& pt) { points.push_back(pt); });
@@ -98,14 +95,11 @@ bool eating_itself()
 {
   int hx = 10, hy = 10;
   auto snake = Snake(Point(hx, hy), Dir::Up, 4);
-  auto initial = snake.can_move();
-  snake.turn_right();
-  snake.move();
-  snake.turn_right();
-  snake.move();
-  snake.turn_right();
+  auto initial = snake.can_move(Dir::Up);
+  snake.move(Dir::Right);
+  snake.move(Dir::Down);
 
-  return initial && !snake.can_move();
+  return initial && !snake.can_move(Dir::Left);
 }
 int main()
 {
