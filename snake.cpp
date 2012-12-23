@@ -58,10 +58,8 @@ void Snake::move(Dir::Enum dir)
 }
 void Snake::eat()
 {
-  // just grow at front
-  auto dir = segments[0];
-  head = head.move(Dir::opposite(dir));
-  segments.push_front(dir);
+  auto last = segments.back();
+  segments.push_back(last);
 }
 
 bool Snake::can_move(Dir::Enum dir) const

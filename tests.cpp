@@ -86,8 +86,8 @@ bool eat()
   std::vector<Point> points;
   snake.iter([&points](const Point& pt) { points.push_back(pt); });
 
-  if(points[0] != Point(hx, hy-1)) return false;
-  if(points[1] != Point(hx, hy)) return false;
+  if(points[0] != Point(hx, hy)) return false;
+  if(points[3] != Point(hx, hy+3)) return false;
   if(points.size() != 4) return false;
   return true;
 }
