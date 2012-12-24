@@ -2,6 +2,7 @@
 #include <string>
 #include <vector>
 #include "snake.h"
+#include "level.h"
 
 void assert(bool cond, std::string message)
 {
@@ -101,6 +102,16 @@ bool eating_itself()
 
   return initial && !snake.can_move(Dir::Left);
 }
+bool stuff_on_level()
+{
+  auto level = Level(10, 10);
+  level.put(Tile::Food, 5, 5);
+  level.put(Tile::Wall, 1, 1);
+
+  return level.get(0, 0) == Tile::Empty 
+    && level.get(1, 1) == Tile::Wall
+    && level.get(5, 5) == Tile::Food;
+}
 int main()
 {
   std::cout << "Running tests..." << std::endl;
@@ -111,5 +122,6 @@ int main()
   assert(move_down(), "Moving down");  
   assert(eat(), "Eating");  
   assert(eating_itself(), "Detecting eating itself");
+  assert(stuff_on_level(), "Placing stuff on level");  
   return 0;
 }
