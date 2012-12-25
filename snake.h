@@ -4,42 +4,40 @@
 #include <deque> 
 #include <functional>
 
-namespace Dir
+enum class Dir
 {
-  enum Enum
-  {
-    Up,
-    Right,
-    Down,
-    Left
-  };
-  Enum opposite(Enum dir);
-}
+  Up,
+  Right,
+  Down,
+  Left
+};
+Dir opposite(Dir);
+
 
 struct Point
 {
   int X;
   int Y;
   Point(int x, int y) : X(x), Y(y) {};
-  Point move(Dir::Enum) const;
+  Point move(Dir) const;
   bool operator==(const Point&) const;
   bool operator!=(const Point&) const;
 };
 
 class Snake
 {
-  std::deque<Dir::Enum> segments;
+  std::deque<Dir> segments;
   Point head;
 public:
-  const Dir::Enum get_dir() const { return Dir::opposite(segments[0]); }
+  const Dir get_dir() const { return opposite(segments[0]); }
   Point get_target() const { return head.move(get_dir()); }
 
-  Snake(Point head, Dir::Enum dir = Dir::Up, int length = 2);
-  void move(Dir::Enum);
+  Snake(Point head, Dir dir = Dir::Up, int length = 2);
+  void move(Dir);
   void eat();
   
   // checks whether snake would eat himself on potential move
-  bool can_move(Dir::Enum) const;
+  bool can_move(Dir) const;
   void iter(std::function<void(const Point&)> func);
 };
 

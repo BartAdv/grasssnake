@@ -3,23 +3,20 @@
 
 #include <vector>
 
-namespace Tile
+enum class Tile
 {
-  enum Enum
-  {
-    Empty,
-    Wall,
-    Food
-  };
-}
+  Empty,
+  Wall,
+  Food
+};
 
 class Level 
 {
-  std::vector<Tile::Enum> grid;
+  std::vector<Tile> grid;
   int width;
   int height;
 
-  Tile::Enum& get_tile(int x, int y);
+  Tile& get_tile(int x, int y);
 
  public:
   Level(int width, int height);
@@ -28,8 +25,8 @@ class Level
   bool is_wall(int x, int y);
   bool is_food(int x, int y);
 
-  const Tile::Enum& get(int, int);
-  void put(Tile::Enum, int, int);
+  const Tile& get(int, int);
+  void put(Tile, int, int);
   void clear(int, int);
 };
 

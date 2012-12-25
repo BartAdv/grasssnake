@@ -7,7 +7,7 @@ Level::Level(int width, int height)
   for(int i = 0; i < width * height; i++)
     grid.push_back(Tile::Empty);
 }
-Tile::Enum& Level::get_tile(int x, int y)
+Tile& Level::get_tile(int x, int y)
 {
   return grid[y * width + x];
 }
@@ -23,11 +23,11 @@ bool Level::is_food(int x, int y)
 {
   return get_tile(x, y) == Tile::Food;
 }
-const Tile::Enum& Level::get(int x, int y)
+const Tile& Level::get(int x, int y)
 {
   return get_tile(x, y);
 }
-void Level::put(Tile::Enum what, int x, int y)
+void Level::put(Tile what, int x, int y)
 {
   get_tile(x, y) = what;
 }

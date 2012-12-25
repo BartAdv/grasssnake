@@ -1,7 +1,7 @@
 #include <stdexcept>
 #include "snake.h"
 
-Point Point::move(Dir::Enum dir) const
+Point Point::move(Dir dir) const
 {
   switch(dir)
   {
@@ -21,7 +21,7 @@ bool Point::operator!=(const Point& rhs) const
   return rhs.X != this->X || rhs.Y != this->Y;
 }
 
-Dir::Enum Dir::opposite(Dir::Enum dir)
+Dir opposite(Dir dir)
 {
   switch(dir)
   {
@@ -33,10 +33,10 @@ Dir::Enum Dir::opposite(Dir::Enum dir)
   }
 }
 
-Snake::Snake(Point head, Dir::Enum dir, int length)
+Snake::Snake(Point head, Dir dir, int length)
   : head(head)
 {
-  auto d = Dir::opposite(dir);
+  auto d = opposite(dir);
   for(int i = 0; i < length-1; i++)
     segments.push_back(d);
 }
@@ -50,10 +50,10 @@ void Snake::iter(std::function<void(const Point&)> func)
     func(pt);
   }
 }
-void Snake::move(Dir::Enum dir)
+void Snake::move(Dir dir)
 {
   head = head.move(dir);
-  segments.push_front(Dir::opposite(dir));
+  segments.push_front(opposite(dir));
   segments.pop_back();
 }
 void Snake::eat()
@@ -62,7 +62,7 @@ void Snake::eat()
   segments.push_back(last);
 }
 
-bool Snake::can_move(Dir::Enum dir) const
+bool Snake::can_move(Dir dir) const
 {
   auto target = head.move(dir);
   Point pt = head;
