@@ -21,7 +21,7 @@ tests: tests.o snake.o level.o game.o
 	$(CC) -o bin/$@ $+
 	bin/$@
 
-obj/tests.o: tests.cpp
+obj/tests.o: tests.cpp snake.h level.h game.h
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean:
