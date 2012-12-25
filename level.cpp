@@ -23,7 +23,15 @@ bool Level::is_food(int x, int y)
 {
   return get_tile(x, y) == Tile::Food;
 }
+const Tile::Enum& Level::get(int x, int y)
+{
+  return get_tile(x, y);
+}
 void Level::put(Tile::Enum what, int x, int y)
 {
   get_tile(x, y) = what;
+}
+void Level::clear(int x, int y)
+{
+  get_tile(x, y) = Tile::Empty;
 }

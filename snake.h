@@ -31,6 +31,9 @@ class Snake
   std::deque<Dir::Enum> segments;
   Point head;
 public:
+  const Dir::Enum get_dir() const { return Dir::opposite(segments[0]); }
+  Point get_target() const { return head.move(get_dir()); }
+
   Snake(Point head, Dir::Enum dir = Dir::Up, int length = 2);
   void move(Dir::Enum);
   void eat();

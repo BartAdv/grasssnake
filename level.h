@@ -28,8 +28,9 @@ class Level
   bool is_wall(int x, int y);
   bool is_food(int x, int y);
 
+  const Tile::Enum& get(int, int);
   void put(Tile::Enum, int, int);
-  const Tile::Enum& get(int x, int y) { return get_tile(x, y); }
+  void clear(int, int);
 };
 
 #endif
