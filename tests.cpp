@@ -47,6 +47,7 @@ bool move_left()
   if(points[0] != Point(hx-1, hy)) return false;
   if(points[1] != Point(hx, hy)) return false;
   if(points[2] != Point(hx, hy+1)) return false;
+  if(points.size() != 3) return false;
   return true;
 }
 bool move_right()
@@ -61,6 +62,7 @@ bool move_right()
   if(points[0] != Point(hx+1, hy)) return false;
   if(points[1] != Point(hx, hy)) return false;
   if(points[2] != Point(hx, hy+1)) return false;
+  if(points.size() != 3) return false;  
   return true;
 }
 bool move_down()
@@ -75,7 +77,7 @@ bool move_down()
   if(points[0] != Point(hx, hy+1)) return false;
   if(points[1] != Point(hx, hy)) return false;
   if(points[2] != Point(hx-1, hy)) return false;
-
+  if(points.size() != 3) return false;
   return true;
 }
 bool eat()
