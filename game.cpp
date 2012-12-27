@@ -13,14 +13,16 @@ void Game::quit()
   if(level != nullptr) delete level;
   if(snake != nullptr) delete snake;
 }
-void Game::update(int delta)
+void Game::update()
 {
-  if(delta - last_tick > speed) { 
+  if(counter > speed) { 
     auto target = snake->get_target();
     if(level->get(target.X, target.Y) == Tile::Food) {
       snake->eat();
       level->clear(target.X, target.Y);
     }
-    last_tick = delta;
+    snake->move(snake->get_dir());
+    counter = 0;
   }
+  counter++;
 }

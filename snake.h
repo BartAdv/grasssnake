@@ -38,7 +38,7 @@ public:
   
   // checks whether snake would eat himself on potential move
   bool can_move(Dir) const;
-  void iter(std::function<void(const Point&)> func);
+  void iter(std::function<void(const Point&)> func) const;
 };
 
 #endif

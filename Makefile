@@ -5,7 +5,7 @@ vpath %.o obj
 
 all: snake
 
-snake: snake.o level.o game.o gfx.o events.o main.o
+snake: snake.o level.o game.o gfx.o main.o
 	$(CC) -lallegro -o bin/$@ $+
 
 obj/snake.o: snake.cpp snake.h
@@ -17,8 +17,6 @@ obj/game.o: game.cpp game.h snake.h level.h
 obj/main.o: main.cpp snake.h
 	$(CC) $(CFLAGS) -o $@ $<
 obj/gfx.o: gfx.cpp gfx.h
-	$(CC) $(CFLAGS) -o $@ $<
-obj/events.o: events.cpp events.h
 	$(CC) $(CFLAGS) -o $@ $<
 
 tests: tests.o snake.o level.o game.o

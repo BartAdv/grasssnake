@@ -40,7 +40,7 @@ Snake::Snake(Point head, Dir dir, int length)
   for(int i = 0; i < length-1; i++)
     segments.push_back(d);
 }
-void Snake::iter(std::function<void(const Point&)> func)
+void Snake::iter(std::function<void(const Point&)> func) const
 {
   Point pt = head;
   func(pt);
