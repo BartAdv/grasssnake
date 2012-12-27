@@ -40,6 +40,13 @@ void Gfx::draw_snake(const Snake& snake)
       al_draw_bitmap(square, pt.X * 16, pt.Y * 16, 0);
     });
 }
+void Gfx::draw_level(const Level& level)
+{
+  level.iter([this](int x, int y, Tile tile) {
+      if(tile == Tile::Food)
+	al_draw_bitmap(square, x * 16, y * 16, 0);
+    }); 
+}
 void Gfx::present()
 {
   al_flip_display();

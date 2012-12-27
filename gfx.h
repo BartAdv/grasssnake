@@ -3,6 +3,7 @@
 
 #include <allegro5/allegro.h>
 #include "snake.h"
+#include "level.h"
 
 class Gfx {
   ALLEGRO_DISPLAY* display;
@@ -15,6 +16,7 @@ class Gfx {
 
   bool init();
   void draw_snake(const Snake&);
+  void draw_level(const Level&);  
   void present();
   void begin();
 };

@@ -74,3 +74,13 @@ bool Snake::can_move(Dir dir) const
   }
   return true;
 }
+bool Snake::contains(const Point& point) const
+{
+  Point pt = head;
+  if(pt == point) return true;
+  for(auto seg : segments) {
+    pt = pt.move(seg);
+    if(pt == point) return true;
+  }
+  return false;
+}

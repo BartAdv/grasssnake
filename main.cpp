@@ -26,32 +26,59 @@ int main()
   Game game;
 
   if(!al_init()) {
-    fprintf(stderr, "failed to initialize allegro!\n");
+    std::cerr << "Failed to initialize allegro!" << std::endl;
     return -1;
   }
-
+  if(!al_install_keyboard()) {
+    std::cerr << "Failed to install keyboard!" << std::endl;
+    return -1;
+  }
   gfx.init();
   ALLEGRO_EVENT_QUEUE* events = init_events();
   ALLEGRO_TIMER* timer = init_timer(60.0);
 
   al_register_event_source(events, al_get_timer_event_source(timer));
   al_start_timer(timer);
+  al_register_event_source(events, al_get_keyboard_event_source());
   al_register_event_source(events, al_get_display_event_source(const_cast<ALLEGRO_DISPLAY*>(gfx.get_display())));
 
   game.new_game();
   ALLEGRO_EVENT ev;
+  bool redraw = true;
+
   while(true) {
     al_wait_for_event(events, &ev);
     
     if(ev.type == ALLEGRO_EVENT_TIMER) {
       game.update();
-
-      gfx.begin();
-      gfx.draw_snake(game.get_snake());
-      gfx.present();
+      redraw = true;
     } 
+    else if(ev.type == ALLEGRO_EVENT_KEY_DOWN) {
+      switch(ev.keyboard.keycode) {
+      case ALLEGRO_KEY_UP:
+	game.move(Dir::Up);
+	break;
+      case ALLEGRO_KEY_RIGHT:
+	game.move(Dir::Right);
+	break;
+      case ALLEGRO_KEY_DOWN:
+	game.move(Dir::Down);
+	break;
+      case ALLEGRO_KEY_LEFT:
+	game.move(Dir::Left);
+	break;
+      }
+    }
     else if(ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
       break;
+    if(redraw && al_is_event_queue_empty(events)) {
+      gfx.begin();
+      gfx.draw_level(game.get_level());
+      gfx.draw_snake(game.get_snake());
+      gfx.present();
+
+      redraw = false;
+    }
   }
 
   if(events != nullptr) {

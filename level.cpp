@@ -1,3 +1,4 @@
+#include <iostream>
 #include "level.h"
 
 Level::Level(int width, int height)
@@ -29,9 +30,18 @@ const Tile& Level::get(int x, int y)
 }
 void Level::put(Tile what, int x, int y)
 {
+  std::cout << x << ", " << y << std::endl;
   get_tile(x, y) = what;
 }
 void Level::clear(int x, int y)
 {
   get_tile(x, y) = Tile::Empty;
+}
+void Level::iter(std::function<void(int, int, Tile)> callback) const
+{
+  int i = 0;
+  for(auto tile : grid) {
+    callback(i % width, i / width, tile);
+    i++; 
+ }
 }
